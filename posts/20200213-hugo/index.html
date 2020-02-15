@@ -26,22 +26,22 @@
     
     
     <meta property="og:title" content="Hugo と GitHub Pages を使ってこのサイトを作る" />
-<meta property="og:description" content="https://gohugo.io/documentation/ Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする https://gohugo.io/getting-started/quick-start/ Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo 以後は hugo コマ" />
+<meta property="og:description" content="Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ambi.github.io/posts/20200213-hugo/" />
 <meta property="article:published_time" content="2020-02-14T00:49:23+09:00" />
 <meta property="article:modified_time" content="2020-02-14T00:49:23+09:00" />
 <meta itemprop="name" content="Hugo と GitHub Pages を使ってこのサイトを作る">
-<meta itemprop="description" content="https://gohugo.io/documentation/ Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする https://gohugo.io/getting-started/quick-start/ Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo 以後は hugo コマ">
+<meta itemprop="description" content="Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo">
 <meta itemprop="datePublished" content="2020-02-14T00:49:23&#43;09:00" />
 <meta itemprop="dateModified" content="2020-02-14T00:49:23&#43;09:00" />
-<meta itemprop="wordCount" content="1209">
+<meta itemprop="wordCount" content="1258">
 
 
 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hugo と GitHub Pages を使ってこのサイトを作る"/>
-<meta name="twitter:description" content="https://gohugo.io/documentation/ Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする https://gohugo.io/getting-started/quick-start/ Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo 以後は hugo コマ"/>
+<meta name="twitter:description" content="Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo"/>
 
   </head>
 
@@ -51,8 +51,10 @@
    
   
 
-  <header>
-    <div class="bg-black">
+  
+  
+  <header class="cover bg-top" style="background-image: url('https://ambi.github.io/images/hugo-logo-wide.svg');">
+    <div class="pb3-m pb6-l bg-black-60">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
     <a href="https://ambi.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
@@ -91,6 +93,12 @@
   </div>
 </nav>
 
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <h1 class="f2 f1-l fw2 white-90 mb0 lh-title">Hugo と GitHub Pages を使ってこのサイトを作る</h1>
+          
+        
+      </div>
     </div>
   </header>
 
@@ -142,10 +150,10 @@
       
       
     </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><a href="https://gohugo.io/documentation/">https://gohugo.io/documentation/</a></p>
-<p>Hugo は Go で書かれた高速な静的サイトジェネレータ。</p>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><img src="/images/hugo-logo-wide.svg" alt=""></p>
+<p><a href="https://gohugo.io/documentation/">Hugo</a> は Go で書かれた高速な静的サイトジェネレータ。</p>
 <h2 id="1-hugo-をインストールする">1 Hugo をインストールする</h2>
-<p><a href="https://gohugo.io/getting-started/quick-start/">https://gohugo.io/getting-started/quick-start/</a></p>
+<p><a href="https://gohugo.io/getting-started/quick-start/">Quick Start | Hugo</a> も参照。</p>
 <p>Mac の homebrew であれば、<code>hugo</code> をインストールすればよい：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
 </code></pre></div><p>以後は <code>hugo</code> コマンドが利用できるようになる。代表的なのは以下のコマンド：</p>
@@ -202,6 +210,7 @@ draft: true
 <li><code>date</code>: ページの作成日時</li>
 <li><code>draft</code>: 下書きか否か</li>
 </ul>
+<p>画像などのリソースファイルは、 <code>static</code> ディレクトリ以下に保存すれば自動でアップロードされる。</p>
 <h2 id="6-hugo-サーバを起動する">6 Hugo サーバを起動する</h2>
 <p><code>hugo server</code> コマンドで、足元で Hugo サーバを起動してサイトを見ることができる。<code>-D</code> オプションを付ければ、下書きのコンテンツも見ることができる。</p>
 <pre><code>hugo server -D

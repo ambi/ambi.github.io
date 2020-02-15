@@ -17,7 +17,7 @@
       <pubDate>Fri, 14 Feb 2020 00:49:23 +0900</pubDate>
       
       <guid>https://ambi.github.io/posts/20200213-hugo/</guid>
-      <description>https://gohugo.io/documentation/ Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする https://gohugo.io/getting-started/quick-start/ Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo 以後は hugo コマ</description>
+      <description>Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <pubDate>Sun, 09 Feb 2020 10:26:23 +0900</pubDate>
       
       <guid>https://ambi.github.io/posts/20200209-new-macbookpro-16/</guid>
-      <description>昨日昼に注文した MacBook Pro (16-inch, 2019) が、今朝届いた。早くてありがたい。 セットアップ homebrew まずは homebrew で大抵のものはインストールできるはずなので、homebrew</description>
+      <description>昨日昼に注文した MacBook Pro (16-inch, 2019) が、今朝届いた。早くてありがたい。 （画像は Creative Commons ライセンスの借り物） セットアップ homebrew まずは homebrew で大抵のものはインストールで</description>
     </item>
     
     <item>
