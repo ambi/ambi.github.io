@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>cahiers of tn</title>
-    <link>https://ambi.github.io/</link>
-    <description>Recent content on cahiers of tn</description>
+    <title>Posts on cahiers of tn</title>
+    <link>https://ambi.github.io/posts/</link>
+    <description>Recent content in Posts on cahiers of tn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <lastBuildDate>Fri, 14 Feb 2020 00:49:23 +0900</lastBuildDate>
     
-	<atom:link href="https://ambi.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ambi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
