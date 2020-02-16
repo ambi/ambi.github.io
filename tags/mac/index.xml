@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on cahiers of tn</title>
+    <link>https://ambi.github.io/tags/mac/</link>
+    <description>Recent content in Mac on cahiers of tn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 09 Feb 2020 10:26:23 +0900</lastBuildDate>
+    
+	<atom:link href="https://ambi.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MacBook Pro (16-inch, 2019) 届いた</title>
+      <link>https://ambi.github.io/posts/macbookpro-16inch-2019/</link>
+      <pubDate>Sun, 09 Feb 2020 10:26:23 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/posts/macbookpro-16inch-2019/</guid>
+      <description>昨日昼に注文した MacBook Pro (16-inch, 2019) が、今朝届いた。早くてありがたい。 セットアップ homebrew まずは homebrew で大抵のものはインストールできるはずなので、homebrew</description>
+    </item>
+    
+    <item>
+      <title>MacBook Pro が壊れたので</title>
+      <link>https://ambi.github.io/posts/macbookpro-13inch-2015-broken/</link>
+      <pubDate>Sun, 09 Feb 2020 02:28:05 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/posts/macbookpro-13inch-2015-broken/</guid>
+      <description>今朝起きると、長年使っていた MacBook Pro 13インチ (Mid 2014) が起動しなくなっていた。夜、ベッドで MacBook Pro を開いたまま寝落ちしていたのだが、朝起きると普通にベッ</description>
+    </item>
+    
+  </channel>
+</rss>
