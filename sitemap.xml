@@ -4,16 +4,31 @@
   
   <url>
     <loc>https://ambi.github.io/</loc>
-    <lastmod>2020-02-14T00:49:23+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ambi.github.io/posts/hugo/</loc>
-    <lastmod>2020-02-14T00:49:23+09:00</lastmod>
+    <lastmod>2020-02-16T20:23:30+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://ambi.github.io/posts/</loc>
+    <lastmod>2020-02-16T20:23:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ambi.github.io/tags/</loc>
+    <lastmod>2020-02-16T20:23:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ambi.github.io/posts/rene-clair-under-the-roofs-of-paris/</loc>
+    <lastmod>2020-02-16T20:23:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ambi.github.io/tags/%E6%98%A0%E7%94%BB/</loc>
+    <lastmod>2020-02-16T20:23:30+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ambi.github.io/posts/hugo/</loc>
     <lastmod>2020-02-14T00:49:23+09:00</lastmod>
   </url>
   
@@ -34,10 +49,6 @@
   
   <url>
     <loc>https://ambi.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ambi.github.io/tags/</loc>
   </url>
   
 </urlset>
