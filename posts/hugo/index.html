@@ -35,7 +35,7 @@
 <meta itemprop="description" content="Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo">
 <meta itemprop="datePublished" content="2020-02-14T00:49:23&#43;09:00" />
 <meta itemprop="dateModified" content="2020-02-14T00:49:23&#43;09:00" />
-<meta itemprop="wordCount" content="1924">
+<meta itemprop="wordCount" content="1984">
 
 
 
@@ -230,30 +230,31 @@ draft: true
 </ol>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/sh
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e"># If a command fails then the deploy stops</span>
+<span style="color:#75715e"># If a command fails then the deploy stops.</span>
 set -e
 
 printf <span style="color:#e6db74">&#34;\033[0;32mDeploying updates to GitHub...\033[0m\n&#34;</span>
 
-<span style="color:#75715e"># Build the project.</span>
-hugo <span style="color:#75715e"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
+<span style="color:#75715e"># Remove files for obsolete data.</span>
+rm -rf public/*
 
-<span style="color:#75715e"># Go To Public folder</span>
+<span style="color:#75715e"># Build the project.</span>
+hugo
+
+<span style="color:#75715e"># Push to git.</span>
 cd public
 
-<span style="color:#75715e"># Add changes to git.</span>
 git add .
 
-<span style="color:#75715e"># Commit changes.</span>
 msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rebuilding site </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$*<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 	msg<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$*<span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">fi</span>
 git commit -m <span style="color:#e6db74">&#34;</span>$msg<span style="color:#e6db74">&#34;</span>
 
-<span style="color:#75715e"># Push source and build repos.</span>
 git push origin master
-</code></pre></div><h2 id="9-テーマを作る">9 テーマを作る</h2>
+</code></pre></div><p>上のファイルはほとんど <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Host on GitHub | Hugo</a> のものと同じだが、もう使われなくなった古いファイルが残ったままデプロイされ続ける問題があるので、<code>rm -rf public/*</code> を追加している。</p>
+<h2 id="9-テーマを作る">9 テーマを作る</h2>
 <p><code>hugo new theme</code> コマンドで、新しいテーマを作ることができる：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new theme NAME
 </code></pre></div><p>上のコマンドによって次のようなディレクトリ構造が作られる：</p>
