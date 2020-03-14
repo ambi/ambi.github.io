@@ -1,0 +1,25 @@
+#!/bin/sh
+
+runtest() {
+    result=$($1)
+    if [ "$result" != "$2" ]; then
+        echo "$1: expected $2, but got $result"
+        exit 1
+    fi
+}
+
+setup() {
+    touch temp_test_seek_io
+}
+
+teardown() {
+    rm temp_test_seek_io
+}
+
+setup
+trap teardown EXIT
+
+runtest "./seek_io temp_test_seek_io s100000 wabc" "s100000: seek succeeded
+wabc: wrote 3 bytes"
+runtest "./seek_io temp_test_seek_io s10000 R5" "s10000: seek succeeded
+R5: 00 00 00 00 00 "

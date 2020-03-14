@@ -1,0 +1,22 @@
+#!/bin/sh
+
+setup() {
+    head -c300 t_readv.c > t_readv.c.head
+}
+
+teardown() {
+    rm t_readv.c.head
+    rm temp_test_t_readv
+}
+
+setup
+trap teardown EXIT
+
+./t_readv t_readv.c > temp_test_t_readv
+diff temp_test_t_readv t_readv.c.head
+
+result=$?
+if [ "$result" != "0" ]; then
+    echo "NG"
+    exit 1
+fi

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+teardown() {
+    rm temp_test_copy
+}
+trap teardown EXIT
+
+./copy copy.c temp_test_copy
+
+diff copy.c temp_test_copy
+result=$?
+if [ "$result" != "0" ]; then
+    echo "NG"
+    exit 1
+fi
