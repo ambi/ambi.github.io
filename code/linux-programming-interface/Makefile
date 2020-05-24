@@ -2,12 +2,18 @@ all: copy seek_io
 
 copy:
 
+pipe_sync:
+
 seek_io:
+
+sun_stream_client:
+
+sun_stream_server:
 
 t_readv:
 
 clean:
-	$(RM) hello seek_io t_readv
+	$(RM) copy pipe_sync seek_io sun_stream_client sun_stream_server t_readv
 
 test_copy: copy
 	./test_copy
