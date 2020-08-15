@@ -6,7 +6,7 @@
     
     <title>cahiers of tn  | MacBook Pro (16-inch, 2019) 届いた</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -33,13 +33,14 @@
 <meta property="article:modified_time" content="2020-02-09T10:26:23+09:00" />
 <meta itemprop="name" content="MacBook Pro (16-inch, 2019) 届いた">
 <meta itemprop="description" content="昨日昼に注文した MacBook Pro (16-inch, 2019) が、今朝届いた。早くてありがたい。 セットアップ homebrew まずは homebrew で大抵のものはインストールできるはずなので、homebrew">
-<meta itemprop="datePublished" content="2020-02-09T10:26:23&#43;09:00" />
-<meta itemprop="dateModified" content="2020-02-09T10:26:23&#43;09:00" />
-<meta itemprop="wordCount" content="3426">
+<meta itemprop="datePublished" content="2020-02-09T10:26:23+09:00" />
+<meta itemprop="dateModified" content="2020-02-09T10:26:23+09:00" />
+<meta itemprop="wordCount" content="3529">
 
 
 
-<meta itemprop="keywords" content="Mac," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Mac," />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MacBook Pro (16-inch, 2019) 届いた"/>
 <meta name="twitter:description" content="昨日昼に注文した MacBook Pro (16-inch, 2019) が、今朝届いた。早くてありがたい。 セットアップ homebrew まずは homebrew で大抵のものはインストールできるはずなので、homebrew"/>
 
@@ -156,9 +157,8 @@
 <h2 id="homebrew">homebrew</h2>
 <p>まずは homebrew で大抵のものはインストールできるはずなので、homebrew をインストールする。Safari で検索して、brew のインストールコマンドをターミナルから実行する：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/usr/bin/ruby -e <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><p><a href="https://github.com/ambi/dotfiles/blob/master/Brewfile">Brewfile</a> を用意して、そこに書かれたパッケージをインストールしてくれる <code>brew bundle</code> コマンドを実行する：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew bundle
-</code></pre></div><h2 id="system-preferences">System Preferences</h2>
+</code></pre></div><p><a href="https://github.com/ambi/dotfiles">dotfiles</a> を使って、アプリケーションや設定ファイルを入れる。</p>
+<h2 id="system-preferences">System Preferences</h2>
 <ul>
 <li>Keyboard
 <ul>
@@ -255,7 +255,7 @@
 </li>
 <li>Text
 <ul>
-<li>Cica フォント、サイズ14を選択する</li>
+<li>HackGen フォント、サイズ15、縦サイズ110を選択する</li>
 <li>&ldquo;Ambiguous characters are double-width&rdquo; にチェックをつけないと日本語対応に問題があるはずだけれど、現状触っていて問題がないのでひとまずつけないでおく</li>
 </ul>
 </li>
@@ -273,6 +273,14 @@
 </li>
 </ul>
 </li>
+<li>Keys
+<ul>
+<li><code>shift + command + +</code>: Select Menu Item&hellip; Make Text Bigger （JIS キーボードでは別のキーボードショートカットに上書きされてしまっているので）</li>
+<li><code>shift + command + r</code>: Select Menu Item&hellip; Open Command History （↑の上書きの原因。別のキーボードショートカットを割り当てる）</li>
+<li><code>control + Tab</code>: Next Tab （ほかのアプリケーションとタブ操作の挙動を合わせる）</li>
+<li><code>shift  +control + Tab</code>: Previous Tab （ほかのアプリケーションとタブ操作の挙動を合わせる）</li>
+</ul>
+</li>
 </ul>
 <h2 id="emacs">Emacs</h2>
 <p><code>Emacs.app</code> を <code>/Applications</code> に入れるのは手動：</p>
@@ -282,14 +290,10 @@
 <ul>
 <li>Settings
 <ul>
-<li>Font Family: Cica</li>
-<li>Font Size: 13</li>
-</ul>
-</li>
-<li>Extensions
-<ul>
-<li>Recenter Top Bottom (<code>ctrl-l</code> にバインドする)</li>
-<li>ファイルモードごとの拡張は、必要なときに適宜入れられるのでそのままにしておく</li>
+<li>Font Family: HackGen</li>
+<li>Font Size: 14</li>
+<li>Tab Size: 2</li>
+<li>Word Wrap Column: 120</li>
 </ul>
 </li>
 </ul>
