@@ -1,3 +1,11 @@
+figure {
+  text-align: left !important;
+}
+
 .card {
   height: 200px;
+}
+
+.summary {
+  color: black;
 }
