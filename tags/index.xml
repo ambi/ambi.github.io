@@ -6,10 +6,19 @@
     <description>Recent content in Tags on cahiers of tn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sat, 05 Sep 2020 21:18:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2020 15:24:07 +0900</lastBuildDate>
     
 	<atom:link href="https://ambi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>映画</title>
+      <link>https://ambi.github.io/tags/%E6%98%A0%E7%94%BB/</link>
+      <pubDate>Sun, 20 Sep 2020 15:24:07 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/tags/%E6%98%A0%E7%94%BB/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>雑文</title>
@@ -35,15 +44,6 @@
       <pubDate>Sat, 22 Aug 2020 18:17:47 +0900</pubDate>
       
       <guid>https://ambi.github.io/tags/%E3%83%8E%E3%83%B3%E3%83%95%E3%82%A3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>映画</title>
-      <link>https://ambi.github.io/tags/%E6%98%A0%E7%94%BB/</link>
-      <pubDate>Tue, 18 Aug 2020 23:27:50 +0900</pubDate>
-      
-      <guid>https://ambi.github.io/tags/%E6%98%A0%E7%94%BB/</guid>
       <description></description>
     </item>
     
