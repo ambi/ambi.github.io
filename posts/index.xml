@@ -6,10 +6,24 @@
     <description>Recent content in Posts on cahiers of tn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <lastBuildDate>Sun, 20 Sep 2020 15:24:07 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2020 18:17:55 +0900</lastBuildDate><atom:link href="https://ambi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Practical_English_Usage</title>
+      <link>https://ambi.github.io/posts/practical_english_usage/</link>
+      <pubDate>Mon, 21 Sep 2020 18:17:55 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/posts/practical_english_usage/</guid>
+      <description>Section 1 Verbs 1 irregular verbs The table of irregular verbs &amp;hellip; 2 active verb tenses The table of active verb tenses &amp;hellip; 3 progressive structures I am waiting for the shops to open. 4 non-progressive verbs Some verbs are not often used in progressive forms. mental and emotional states believe, doubt, feel (have an opinion), hate, imagine, know, (dis)like, love, prefer, realise, recognise, remember, see (= understand), suppose, think</description>
+    </item>
     
-	<atom:link href="https://ambi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>JWT, OAuth, OpenID Connect, SCIM</title>
+      <link>https://ambi.github.io/posts/jwt_oauth_oidc_scim/</link>
+      <pubDate>Mon, 21 Sep 2020 18:10:36 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/posts/jwt_oauth_oidc_scim/</guid>
+      <description>JWT RFC 7515 JSON Web Signature (JWS) RFC 7516 JSON Web Encryption (JWE) RFC 7517 JSON Web Key (JWK) RFC 7518 JSON Web Algorithm (JWA) RFC 7519 JSON Web Token (JWT) OAuth 2.0 RFC 6749 The OAuth 2.0 Authorization Framework RFC 6750 The OAuth 2.0 Authorization Framework: Bearer Token Usage RFC 6819 OAuth 2.0 Threat Model and Security Considerations RFC 7009 OAuth 2.0 Token Revocation RFC 7591 OAuth 2.0 Dynamic</description>
+    </item>
     
     <item>
       <title>クリストファー・ノーラン監督『TENET』、観た</title>
@@ -18,6 +32,15 @@
       
       <guid>https://ambi.github.io/posts/christopher_nolan_tenet/</guid>
       <description>クリストファー・ノーラン監督『TENET』(2020)、観た。 ノーラン監督の映画は『インターステラー』(2014)を観て、面白くて、好きにな</description>
+    </item>
+    
+    <item>
+      <title>映画『イエスタデイ』(2019)、観たけど微妙だった</title>
+      <link>https://ambi.github.io/posts/danny_boyle_yesterday/</link>
+      <pubDate>Sun, 13 Sep 2020 01:56:43 +0900</pubDate>
+      
+      <guid>https://ambi.github.io/posts/danny_boyle_yesterday/</guid>
+      <description>ダニー・ボイル監督、リチャード・カーティス脚本の映画『イエスタデイ』(2019)をアマゾンプライムで観た。 うーん、微妙だった。映画公開時に、</description>
     </item>
     
     <item>
@@ -165,11 +188,11 @@
     </item>
     
     <item>
-      <title>Hugo と GitHub Pages を使ってこのサイトを作る</title>
-      <link>https://ambi.github.io/posts/hugo/</link>
+      <title>Hugo と GitHub Pages を使ってサイトを作る</title>
+      <link>https://ambi.github.io/posts/hugo_and_github_pages/</link>
       <pubDate>Fri, 14 Feb 2020 00:49:23 +0900</pubDate>
       
-      <guid>https://ambi.github.io/posts/hugo/</guid>
+      <guid>https://ambi.github.io/posts/hugo_and_github_pages/</guid>
       <description>Hugo は Go で書かれた高速な静的サイトジェネレータ。 1 Hugo をインストールする Quick Start | Hugo も参照。 Mac の homebrew であれば、hugo をインストールすればよい： brew install hugo</description>
     </item>
     

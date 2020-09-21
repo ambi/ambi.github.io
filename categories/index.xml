@@ -5,10 +5,6 @@
     <link>https://ambi.github.io/categories/</link>
     <description>Recent content in Categories on cahiers of tn</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    
-	<atom:link href="https://ambi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>ja-jp</language><atom:link href="https://ambi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
