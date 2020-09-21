@@ -4,21 +4,16 @@
   
   <url>
     <loc>https://ambi.github.io/</loc>
-    <lastmod>2020-09-21T18:17:55+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ambi.github.io/posts/</loc>
-    <lastmod>2020-09-21T18:17:55+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ambi.github.io/posts/practical_english_usage/</loc>
-    <lastmod>2020-09-21T18:17:55+09:00</lastmod>
+    <lastmod>2020-09-21T18:10:36+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://ambi.github.io/posts/jwt_oauth_oidc_scim/</loc>
+    <lastmod>2020-09-21T18:10:36+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ambi.github.io/posts/</loc>
     <lastmod>2020-09-21T18:10:36+09:00</lastmod>
   </url>
   
