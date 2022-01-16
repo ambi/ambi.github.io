@@ -1,6 +1,46 @@
-<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="cahies of tn: blog"><title>Hugo と GitHub Pages を使ってサイトを作る - cahiers of tn</title><link type=text/css rel=stylesheet href=https://ambi.github.io/css/bulma.min.css><link type=text/css rel=stylesheet href=https://ambi.github.io/css/style.css></head><body><section class=container><nav class=navbar role=navigation aria-label="main navigation"><div class=navbar-brand><a class="navbar-item title" href=https://ambi.github.io/>cahiers of tn</a></div><div class=navbar-menu><div class=navbar-end><a class=navbar-item href=/posts/>Posts</a><a class=navbar-item href=/tags/>Tags</a></div></nav></section><hr><div id=main><div class=container><div class=columns><article class="column box is-8 content"><h1>Hugo と GitHub Pages を使ってサイトを作る</h1><section class=mb-6><p><img src=/images/hugo-logo-wide.svg alt></p><p><a href=https://gohugo.io/documentation/>Hugo</a> は Go で書かれた高速な静的サイトジェネレータ。</p><h2 id=1-hugo-をインストールする>1 Hugo をインストールする</h2><p><a href=https://gohugo.io/getting-started/quick-start/>Quick Start | Hugo</a> も参照。</p><p>Mac の homebrew であれば、<code>hugo</code> をインストールすればよい：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>brew install hugo
-</code></pre></div><p>以後は <code>hugo</code> コマンドが利用できるようになる。代表的なのは以下のコマンド：</p><ul><li><code>hugo new site NAME</code>: 新しいサイトを空っぽで作る。</li><li><code>hugo new PATH</code>: 新しいコンテンツファイルを作る。</li><li><code>hugo server</code>: 足元でサイトが見られるサーバを起動する。</li><li><code>hugo</code>: サイトをビルドする。</li></ul><h2 id=2-新しいサイトを作る>2 新しいサイトを作る</h2><p>Hugo はサイトジェネレータなので、まずやることは空っぽのサイトを作ること。<code>hugo new site</code> のあとにサイト名を書いて実行する：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>hugo new site diary
-</code></pre></div><p>サイト名のディレクトリが作られるので、移動しておく：</p><pre><code>% cd diary
+<!doctype html><html><head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="cahies of tn: blog">
+<title>Hugo と GitHub Pages を使ってサイトを作る - cahiers of tn</title>
+<link type=text/css rel=stylesheet href=https://ambi.github.io/css/bulma.min.css>
+<link type=text/css rel=stylesheet href=https://ambi.github.io/css/style.css>
+</head>
+<body><section class=container>
+<nav class=navbar role=navigation aria-label="main navigation">
+<div class=navbar-brand>
+<a class="navbar-item title" href=https://ambi.github.io/>cahiers of tn</a>
+</div>
+<div class=navbar-menu>
+<div class=navbar-end>
+<a class=navbar-item href=/posts/>Posts</a><a class=navbar-item href=/tags/>Tags</a>
+</div>
+</nav>
+</section>
+<hr><div id=main>
+<div class=container>
+<div class=columns>
+<article class="column box is-8 content">
+<h1>Hugo と GitHub Pages を使ってサイトを作る</h1>
+<section class=mb-6><p><img src=/images/hugo-logo-wide.svg alt></p>
+<p><a href=https://gohugo.io/documentation/>Hugo</a> は Go で書かれた高速な静的サイトジェネレータ。</p>
+<h2 id=1-hugo-をインストールする>1 Hugo をインストールする</h2>
+<p><a href=https://gohugo.io/getting-started/quick-start/>Quick Start | Hugo</a> も参照。</p>
+<p>Mac の homebrew であれば、<code>hugo</code> をインストールすればよい：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>brew install hugo
+</code></pre></div><p>以後は <code>hugo</code> コマンドが利用できるようになる。代表的なのは以下のコマンド：</p>
+<ul>
+<li><code>hugo new site NAME</code>: 新しいサイトを空っぽで作る。</li>
+<li><code>hugo new PATH</code>: 新しいコンテンツファイルを作る。</li>
+<li><code>hugo server</code>: 足元でサイトが見られるサーバを起動する。</li>
+<li><code>hugo</code>: サイトをビルドする。</li>
+</ul>
+<h2 id=2-新しいサイトを作る>2 新しいサイトを作る</h2>
+<p>Hugo はサイトジェネレータなので、まずやることは空っぽのサイトを作ること。<code>hugo new site</code> のあとにサイト名を書いて実行する：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>hugo new site diary
+</code></pre></div><p>サイト名のディレクトリが作られるので、移動しておく：</p>
+<pre tabindex=0><code>% cd diary
 % tree
 .
 ├── archetypes
@@ -13,23 +53,55 @@
 └── themes
 
 6 directories, 2 files
-</code></pre><p><a href=https://gohugo.io/getting-started/directory-structure/>Directory Structure | Hugo</a> も参照。</p><h2 id=3-テーマを入れる>3 テーマを入れる</h2><p>次に、ウェブサイトのデザインを決めるテーマを入れる。</p><p>サイト自体を git で管理するなら、git submodule 機能を使うのがよい。<a href=https://github.com/budparr/gohugo-theme-ananke>Ananke</a> というテーマを使う場合：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>git init
+</code></pre><p><a href=https://gohugo.io/getting-started/directory-structure/>Directory Structure | Hugo</a> も参照。</p>
+<h2 id=3-テーマを入れる>3 テーマを入れる</h2>
+<p>次に、ウェブサイトのデザインを決めるテーマを入れる。</p>
+<p>サイト自体を git で管理するなら、git submodule 機能を使うのがよい。<a href=https://github.com/budparr/gohugo-theme-ananke>Ananke</a> というテーマを使う場合：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>git init
 git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
 echo <span style=color:#e6db74>&#39;theme = &#34;ananke&#34;&#39;</span> &gt;&gt; config.toml
-</code></pre></div><p>git を使わない場合、普通にテーマの中身を含んだディレクトリ <code>theme</code> ディレクトリ以下にコピーしてもよい。</p><h2 id=4-設定ファイルを更新する>4 設定ファイルを更新する</h2><p>さきほどテーマを入れたときに <code>config.toml</code> にテーマの設定を追記したが、それ以外にも設定を更新した方がよい。</p><p><code>config.toml</code> を以下のように書き換える：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=color:#a6e22e>baseURL</span> = <span style=color:#e6db74>&#34;公開したときのサイトの URL&#34;</span>
+</code></pre></div><p>git を使わない場合、普通にテーマの中身を含んだディレクトリ <code>theme</code> ディレクトリ以下にコピーしてもよい。</p>
+<h2 id=4-設定ファイルを更新する>4 設定ファイルを更新する</h2>
+<p>さきほどテーマを入れたときに <code>config.toml</code> にテーマの設定を追記したが、それ以外にも設定を更新した方がよい。</p>
+<p><code>config.toml</code> を以下のように書き換える：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=color:#a6e22e>baseURL</span> = <span style=color:#e6db74>&#34;公開したときのサイトの URL&#34;</span>
 <span style=color:#a6e22e>hasCJKLanguage</span> = <span style=color:#66d9ef>true</span> <span style=color:#75715e># 日本語などを含むときは true</span>
 <span style=color:#a6e22e>languageCode</span> = <span style=color:#e6db74>&#34;言語 (ja-jp)&#34;</span>
 <span style=color:#a6e22e>theme</span> = <span style=color:#e6db74>&#34;テーマ名 (ananke)&#34;</span>
 <span style=color:#a6e22e>title</span> = <span style=color:#e6db74>&#34;サイトのタイトル&#34;</span>
-</code></pre></div><h2 id=5-新しいページを作る>5 新しいページを作る</h2><p>実際にコンテンツとして、たとえば Markdown でページを作ることができる。<code>content</code> ディレクトリ以下に <code>posts/hello-world.md</code> という Markdown ファイルを作る：</p><pre><code>hugo new posts/hello-world.md
-</code></pre><p>実際に <code>content/posts/hello-world.md</code> を開いてみると次のような内容になっている。すでに書き込まれている部分は Front matter といい、メタデータになる。その下に、 Markdown で内容を書く。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown>---
+</code></pre></div><h2 id=5-新しいページを作る>5 新しいページを作る</h2>
+<p>実際にコンテンツとして、たとえば Markdown でページを作ることができる。<code>content</code> ディレクトリ以下に <code>posts/hello-world.md</code> という Markdown ファイルを作る：</p>
+<pre tabindex=0><code>hugo new posts/hello-world.md
+</code></pre><p>実際に <code>content/posts/hello-world.md</code> を開いてみると次のような内容になっている。すでに書き込まれている部分は Front matter といい、メタデータになる。その下に、 Markdown で内容を書く。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown>---
 title: &#34;Hello World&#34;
 date: 2020-02-15T04:04:41+09:00
 draft: true
 ---
-</code></pre></div><ul><li><code>title</code>: ページタイトル</li><li><code>date</code>: ページの作成日時</li><li><code>draft</code>: 下書きか否か</li></ul><p>画像などのリソースファイルは、 <code>static</code> ディレクトリ以下に保存すれば自動でアップロードされる。</p><h2 id=6-hugo-サーバを起動する>6 Hugo サーバを起動する</h2><p><code>hugo server</code> コマンドで、足元で Hugo サーバを起動してサイトを見ることができる。<code>-D</code> オプションを付ければ、下書きのコンテンツも見ることができる。</p><pre><code>hugo server -D
-</code></pre><p>http://localhost:1313/ でサイトを開くことができる。</p><h2 id=7-静的なページをビルドする>7 静的なページをビルドする</h2><p><code>hugo</code> コマンドで、サイトを静的なページとしてビルドできる。ここでも <code>-D</code> オプションは利用できる。</p><pre><code>hugo -D
-</code></pre><p><code>public</code> ディレクトリ以下に HTML ファイルなどが生成される。</p><h2 id=8-github-pages-にデプロイする>8 GitHub Pages にデプロイする</h2><p>GitHub Pages に Hugo でビルドされたサイトをデプロイすることができる。</p><p><a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/>Host on GitHub | Hugo</a> を参照。</p><ol><li><code>&lt;USERNAME>.github.io</code> という GitHub リポジトリを作っておく。これが GitHub Pages 用リポジトリになる。</li><li><code>config.toml</code> を書き換えて、<code>baseURL = "https://&lt;USERNAME>.github.io/"</code> にする。</li><li>古い <code>public</code> ディレクトリが残っていればいったん削除してから、 <code>git submodule add -b master https://github.com/&lt;USERNAME>/&lt;USERNAME>.github.io.git public</code> で submodule として追加する。</li><li><code>deploy.sh</code> を用意しておけば、あとはこれを実行すれば自動でデプロイされる。</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e>#!/bin/sh
+</code></pre></div><ul>
+<li><code>title</code>: ページタイトル</li>
+<li><code>date</code>: ページの作成日時</li>
+<li><code>draft</code>: 下書きか否か</li>
+</ul>
+<p>画像などのリソースファイルは、 <code>static</code> ディレクトリ以下に保存すれば自動でアップロードされる。</p>
+<h2 id=6-hugo-サーバを起動する>6 Hugo サーバを起動する</h2>
+<p><code>hugo server</code> コマンドで、足元で Hugo サーバを起動してサイトを見ることができる。<code>-D</code> オプションを付ければ、下書きのコンテンツも見ることができる。</p>
+<pre tabindex=0><code>hugo server -D
+</code></pre><p>http://localhost:1313/ でサイトを開くことができる。</p>
+<h2 id=7-静的なページをビルドする>7 静的なページをビルドする</h2>
+<p><code>hugo</code> コマンドで、サイトを静的なページとしてビルドできる。ここでも <code>-D</code> オプションは利用できる。</p>
+<pre tabindex=0><code>hugo -D
+</code></pre><p><code>public</code> ディレクトリ以下に HTML ファイルなどが生成される。</p>
+<h2 id=8-github-pages-にデプロイする>8 GitHub Pages にデプロイする</h2>
+<p>GitHub Pages に Hugo でビルドされたサイトをデプロイすることができる。</p>
+<p><a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/>Host on GitHub | Hugo</a> を参照。</p>
+<ol>
+<li><code>&lt;USERNAME>.github.io</code> という GitHub リポジトリを作っておく。これが GitHub Pages 用リポジトリになる。</li>
+<li><code>config.toml</code> を書き換えて、<code>baseURL = "https://&lt;USERNAME>.github.io/"</code> にする。</li>
+<li>古い <code>public</code> ディレクトリが残っていればいったん削除してから、 <code>git submodule add -b master https://github.com/&lt;USERNAME>/&lt;USERNAME>.github.io.git public</code> で submodule として追加する。</li>
+<li><code>deploy.sh</code> を用意しておけば、あとはこれを実行すれば自動でデプロイされる。</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e>#!/bin/sh
 </span><span style=color:#75715e></span>
 <span style=color:#75715e># If a command fails then the deploy stops.</span>
 set -e
@@ -54,8 +126,12 @@ msg<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;rebuilding s
 git commit -m <span style=color:#e6db74>&#34;</span>$msg<span style=color:#e6db74>&#34;</span>
 
 git push origin master
-</code></pre></div><p>上のファイルはほとんど <a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/>Host on GitHub | Hugo</a> のものと同じだが、もう使われなくなった古いファイルが残ったままデプロイされ続ける問題があるので、<code>rm -rf public/*</code> を追加している。</p><h2 id=9-テーマを作る>9 テーマを作る</h2><p><code>hugo new theme</code> コマンドで、新しいテーマを作ることができる：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>hugo new theme NAME
-</code></pre></div><p>上のコマンドによって次のようなディレクトリ構造が作られる：</p><pre><code>% tree themes/NAME
+</code></pre></div><p>上のファイルはほとんど <a href=https://gohugo.io/hosting-and-deployment/hosting-on-github/>Host on GitHub | Hugo</a> のものと同じだが、もう使われなくなった古いファイルが残ったままデプロイされ続ける問題があるので、<code>rm -rf public/*</code> を追加している。</p>
+<h2 id=9-テーマを作る>9 テーマを作る</h2>
+<p><code>hugo new theme</code> コマンドで、新しいテーマを作ることができる：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>hugo new theme NAME
+</code></pre></div><p>上のコマンドによって次のようなディレクトリ構造が作られる：</p>
+<pre tabindex=0><code>% tree themes/NAME
 themes/NAME
 ├── LICENSE
 ├── archetypes
@@ -77,7 +153,9 @@ themes/NAME
 └── theme.toml
 
 7 directories, 11 files
-</code></pre><p>テーマでは Go テンプレート機能が活用されているので、参照。<a href=https://golang.org/pkg/text/template/>template - The Go Programming Language</a></p><p><code>layouts/_default/baseof.html</code> はベースとなる HTML テンプレート。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</code></pre><p>テーマでは Go テンプレート機能が活用されているので、参照。<a href=https://golang.org/pkg/text/template/>template - The Go Programming Language</a></p>
+<p><code>layouts/_default/baseof.html</code> はベースとなる HTML テンプレート。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
 &lt;<span style=color:#f92672>html</span>&gt;
   {{- partial &#34;head.html&#34; . -}}
   &lt;<span style=color:#f92672>body</span>&gt;
@@ -88,6 +166,36 @@ themes/NAME
     {{- partial &#34;footer.html&#34; . -}}
   &lt;/<span style=color:#f92672>body</span>&gt;
 &lt;/<span style=color:#f92672>html</span>&gt;
-</code></pre></div><ul><li>いわゆる <code>&lt;head>...&lt;/head></code> にあたる部分は、 <code>head.html</code> 部分テンプレートを使うようにしている。なので、別に <code>head.html</code> も必要となる。</li><li><code>&lt;body>...&lt;/body></code> は大きくヘッダ、メイン、フッタの３つに分かれる。ヘッダとフッタはそれぞれ <code>header.html</code>, <code>footer.html</code> 部分テンプレートを使う。メインだけは少し違っていて、<code>main</code> ブロックを使っている。</li></ul><p>部分テンプレートは <code>layous/partials</code> ディレクトリにある。<code>hugo new theme</code> した直後では、<code>layouts/partials/{head,header,footer}.html</code> ファイルはあるものの、すべて中身は空なので、適切に埋めないといけない。</p><p>普通の１記事のレイアウトは、<code>layouts/single.html</code> が使われる。記事一覧のレイアウトは、<code>lauouts/list.html</code> が使われる。タグ一覧のようなもののレイアウトは、<code>layouts/terms.html</code> が使われる。あるタグの記事一覧のようなもののレイアウトは、<code>layouts/taxonomy.html</code> が使われる。</p><p>トップページは <code>layouts/index.html</code> が使われる。</p><h2 id=10-画像を貼り付ける>10 画像を貼り付ける</h2><p><code>static</code> ディレクトリに画像ファイルを配置すれば、その画像ファイルはアップロードされて Markdown なら <code>![](IMAGE_FILE_PATH)</code> で表示できる。</p><p>ページタイトル画像は、テーマによるがたとえば <code>featured_image</code> を設定すれば行える（参照：[gohugo-theme-ananke#change-the-hero-background](<a href=https://github.com/budparr/gohugo-theme-ananke#change-the-hero-background%5D>https://github.com/budparr/gohugo-theme-ananke#change-the-hero-background]</a>）。</p><h2 id=11-関連コンテンツ機能>11 関連コンテンツ機能</h2><p><a href=https://gohugo.io/content-management/related/>Related Content | Hugo</a>はあるが、自分が欲しいのは Scrapbox の関連ページリスト機能のような機能。</p></section></article><div class=column><div class="tags has-addons"><span class="tag is-dark">Created at</span>
-<span class=tag><time datetime=2020-02-14T00:49:23+09:00>2020/02/14 00:49:23</time></span></div><div class="tags has-addons"><span class="tag is-dark">Tags</span>
-<a href=/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0 class="tag is-link">プログラミング</a></div></div></div></div></div><footer class=footer><div class="content has-text-centered"><p>Written by tn.</p><p>Generated by <a href=https://gohugo.io/>Hugo</a>.</p></div></footer></body></html>
+</code></pre></div><ul>
+<li>いわゆる <code>&lt;head>...&lt;/head></code> にあたる部分は、 <code>head.html</code> 部分テンプレートを使うようにしている。なので、別に <code>head.html</code> も必要となる。</li>
+<li><code>&lt;body>...&lt;/body></code> は大きくヘッダ、メイン、フッタの３つに分かれる。ヘッダとフッタはそれぞれ <code>header.html</code>, <code>footer.html</code> 部分テンプレートを使う。メインだけは少し違っていて、<code>main</code> ブロックを使っている。</li>
+</ul>
+<p>部分テンプレートは <code>layous/partials</code> ディレクトリにある。<code>hugo new theme</code> した直後では、<code>layouts/partials/{head,header,footer}.html</code> ファイルはあるものの、すべて中身は空なので、適切に埋めないといけない。</p>
+<p>普通の１記事のレイアウトは、<code>layouts/single.html</code> が使われる。記事一覧のレイアウトは、<code>lauouts/list.html</code> が使われる。タグ一覧のようなもののレイアウトは、<code>layouts/terms.html</code> が使われる。あるタグの記事一覧のようなもののレイアウトは、<code>layouts/taxonomy.html</code> が使われる。</p>
+<p>トップページは <code>layouts/index.html</code> が使われる。</p>
+<h2 id=10-画像を貼り付ける>10 画像を貼り付ける</h2>
+<p><code>static</code> ディレクトリに画像ファイルを配置すれば、その画像ファイルはアップロードされて Markdown なら <code>![](IMAGE_FILE_PATH)</code> で表示できる。</p>
+<p>ページタイトル画像は、テーマによるがたとえば <code>featured_image</code> を設定すれば行える（参照：[gohugo-theme-ananke#change-the-hero-background](<a href=https://github.com/budparr/gohugo-theme-ananke#change-the-hero-background%5D>https://github.com/budparr/gohugo-theme-ananke#change-the-hero-background]</a>）。</p>
+<h2 id=11-関連コンテンツ機能>11 関連コンテンツ機能</h2>
+<p><a href=https://gohugo.io/content-management/related/>Related Content | Hugo</a>はあるが、自分が欲しいのは Scrapbox の関連ページリスト機能のような機能。</p>
+</section>
+</article>
+<div class=column>
+<div class="tags has-addons">
+<span class="tag is-dark">Created at</span>
+<span class=tag><time datetime=2020-02-14T00:49:23+09:00>2020/02/14 00:49:23</time></span>
+</div>
+<div class="tags has-addons">
+<span class="tag is-dark">Tags</span>
+<a href=/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0 class="tag is-link">プログラミング</a>
+</div>
+</div>
+</div>
+</div>
+</div><footer class=footer>
+<div class="content has-text-centered">
+<p>Written by tn.</p>
+<p>Generated by <a href=https://gohugo.io/>Hugo</a>.</p>
+</div>
+</footer></body>
+</html>
