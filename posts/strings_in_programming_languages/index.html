@@ -1,0 +1,277 @@
+<!doctype html><html><head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="cahies of tn: blog">
+<title>プログラミング言語における文字列 - cahiers of tn</title>
+<link type=text/css rel=stylesheet href=https://ambi.github.io/css/bulma.min.css>
+<link type=text/css rel=stylesheet href=https://ambi.github.io/css/style.css>
+</head>
+<body><section class=container>
+<nav class=navbar role=navigation aria-label="main navigation">
+<div class=navbar-brand>
+<a class="navbar-item title" href=https://ambi.github.io/>cahiers of tn</a>
+</div>
+<div class=navbar-menu>
+<div class=navbar-end>
+<a class=navbar-item href=/posts/>Posts</a><a class=navbar-item href=/tags/>Tags</a>
+</div>
+</nav>
+</section>
+<hr><div id=main>
+<div class=container>
+<div class=columns>
+<article class="column box is-8 content">
+<h1>プログラミング言語における文字列</h1>
+<section class=mb-6><p>プログラミングにおいて文字列 (string) 型は課題であり続けた。</p>
+<ul>
+<li>文字列の内部表現は何か？　ASCII で5文字の文字列や、日本語で5文字の文字列は、どれほどメモリを消費するか？</li>
+<li>文字列の個々の要素は可変か？</li>
+<li>文字数の計算はどのように取得できるか？　その計算コストは？</li>
+<li>プログラミング言語処理系が定義する文字列の扱いをよく理解せず、普通にコーディングしたとき、ちゃんと特殊な文字も正しく処理してくれるか？　どこを注意しなければならないか？</li>
+</ul>
+<p>古くからの文字列の歴史を調べることはしない。簡単に代表的ないくつかのプログラミング言語について、まとめる。</p>
+<h2 id=unicode>Unicode</h2>
+<p>Unicode の長い歴史については語らず、今回の話で関係することだけを語る。</p>
+<p>Unicode は世界中のすべての文字を表現できることを試みた文字コード規格である。エンコーディング形式としては、UTF-8, UTF-16, UTF-32 の３種類を定義している。それぞれコードユニット（文字を表現するのに使われる最小限のビット列単位。参照: <a href=https://unicode.org/glossary/>Glossary - Unicode</a>）が異なっていて、UTF-8 は1バイト、UTF-16 は2バイト、UTF-32 は4バイトとなっている。</p>
+<p>UTF-8 は1バイトのコードユニットで、ASCII の上位互換のエンコーディング形式である。ASCII の範囲は1バイトで、ASCII と同一の文字コードによって表現される。ASCII の範囲外は2-4バイトで表現される（本当は5-6バイトでの表現も定義されているがこれは Unicode 範囲外）。１文字の長さが可変であるため、文字数はコードユニット数と別に計算する必要があるし、インデクシングの計算コストも <code>O(n)</code> になる（ASCII 範囲内の文字列だと分かっていれば、コードユニット単位でインデクシングして <code>O(1)</code> になる最適化をしている実装はある）。現状、世界のファイル形式としてもっともよく利用されている。</p>
+<p>UTF-16 は2バイトのコードユニットで、多くの基本的な文字が2バイトで表現される。それ以外の文字はサロゲートペアというコードユニット２つ、すなわち4バイトで表現される。たとえば &ldquo;😆&rdquo; という絵文字はサロゲートペアで表現される文字の例になる。UTF-16 が危険なのは、「多くの基本的な文字」はコードユニットごとに１文字なので、コードポイント単位と文字単位を同一視して扱ってしまっても「基本的には」問題にならず、結果的にそのままリリースしてしまいがちなことだ。ASCII 範囲内の文字列を表現する場合は UTF-8 の２倍の保存領域を消費してしまうが、ASCII 範囲外の文字列を表現する場合は UTF-8 と同等くらいか UTF-16 よりも保存領域を消費しないですむ。また、「サロゲートペアを無視すれば」、コードユニットの数がそのまま文字数になる単純性もある。</p>
+<p>UTF-32 は4バイトのコードユニットで、すべての文字が4バイトで表現される。コードユニット単位と文字単位は同一なので、文字の扱いで問題が発生することはない。ただし、ほとんどの文字列で UTF-8, UTF-16 より保存領域を消費してしまい、特に ASCII 範囲内の文字列については UTF-8 の４倍である。</p>
+<p>Unicode についてきちんと考えると、結合文字、異体字セレクタ、ゼロ幅接合子などの特殊な話があって、それも含めると文字の扱いはより難しいが、その話は今回取り扱わない。</p>
+<h2 id=c-c>C, C++</h2>
+<p>C言語の文字列 <code>char[]</code> は、単純な可変なバイト配列である。C言語の文字列は特殊なヌル文字 <code>\0</code> で終端するルールになっており、<code>\0</code> までの文字数を数えることで文字列長を計算できる。</p>
+<ul>
+<li>文字列の内部表現: バイト列 (エンコーディングは自由だが現実的には UTF-8)。ただし終端を指す <code>\0</code> の1バイトも必要となる。</li>
+<li>文字列の可変性: 可変。</li>
+<li>文字数: 終端を指す <code>\0</code> までの文字数を計算する。ASCII の範囲であれば単純にバイト数を計算すればよいし（<code>strlen()</code>）、UTF-8 の範囲であれば UTF-8 エンコーディングの仕様に従ってマルチバイト文字も正しく計算すればよい。そのため <code>n</code> をバイト数または文字数とすれば <code>O(n)</code>。</li>
+<li>文字列の扱い: バイト列でしかないため、要素アクセスも文字数計算も注意が必要。</li>
+</ul>
+<p>ただ C は、そもそもライブラリ側が <code>char[]</code> でなく <code>wchar[]</code> を利用していたり、文字列長も保持した独自の構造体型を作っていたりすることも多い。<code>wchar</code> は2バイトまたは4バイトになるため、現実的にはエンコーディングは UTF-16 または UTF-32 になる。UTF-16 の場合はサロゲートペアの扱いに注意しないといけないし、UTF-32 の場合はさすがに通常のユースケースでは無駄にメモリを食いすぎる。また、プラットフォームによって <code>wchar</code> が2バイトになるか4バイトになるか異なる時点で、まともにクロスプラットフォームで扱える型でない。</p>
+<p>現代において C, C++ はナイーブに利用されるような言語でなくなっているので、利用するときは文字列の扱いについては自己責任でいいだろうと思う。</p>
+<h2 id=java-kotlin>Java, Kotlin</h2>
+<p><a href=https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html>Java の文字列</a>は、不可変な UTF-16 文字列である。通常の要素アクセスや文字列長のメソッドは、単に16ビットのコードユニットごとに１つの要素として扱うため、サロゲートペアの問題が発生する。正しく文字数を計算するには <code>str.codePointCount(0, str.length)</code> を使う。正しく文字列を文字の列として扱うには <code>str.codePoints()</code> を使う。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-kotlin data-lang=kotlin><span style=color:#66d9ef>fun</span> <span style=color:#a6e22e>main</span>() {
+    <span style=color:#66d9ef>val</span> s = <span style=color:#e6db74>&#34;こんにちは😆&#34;</span>
+    println(s)
+    println(<span style=color:#e6db74>&#34;s.length(): &#34;</span>  + s.length)
+    println(<span style=color:#e6db74>&#34;s.split(</span><span style=color:#ae81ff>\&#34;\&#34;</span><span style=color:#e6db74>): &#34;</span> + s.split(<span style=color:#e6db74>&#34;&#34;</span>))
+    s.forEachIndexed { i, c <span style=color:#f92672>-&gt;</span> println(<span style=color:#e6db74>&#34;s[&#34;</span> + i + <span style=color:#e6db74>&#34;]: &#34;</span> + c) }
+
+    println(<span style=color:#e6db74>&#34;s.codePointCount(): &#34;</span> + s.codePointCount(<span style=color:#ae81ff>0</span>, s.length))
+    s.codePoints().forEach { c <span style=color:#f92672>-&gt;</span> println(<span style=color:#e6db74>&#34;s.codePoints(): %c&#34;</span>.format(c)) }
+}
+
+<span style=color:#75715e>// こんにちは😆
+</span><span style=color:#75715e>// s.length(): 7
+</span><span style=color:#75715e>// s.split(&#34;&#34;): [, こ, ん, に, ち, は, ?, ?, ]
+</span><span style=color:#75715e>// s[0]: こ
+</span><span style=color:#75715e>// s[1]: ん
+</span><span style=color:#75715e>// s[2]: に
+</span><span style=color:#75715e>// s[3]: ち
+</span><span style=color:#75715e>// s[4]: は
+</span><span style=color:#75715e>// s[5]: ?
+</span><span style=color:#75715e>// s[6]: ?
+</span><span style=color:#75715e>// s.codePointCount(): 6
+</span><span style=color:#75715e>// s.codePoints(): こ
+</span><span style=color:#75715e>// s.codePoints(): ん
+</span><span style=color:#75715e>// s.codePoints(): に
+</span><span style=color:#75715e>// s.codePoints(): ち
+</span><span style=color:#75715e>// s.codePoints(): は
+</span><span style=color:#75715e>// s.codePoints(): 😆
+</span></code></pre></div><p>Java は言語の歴史の長さからすれば負の遺産を抱えても仕方ないが、Kotlin はせっかく新しめの言語なのに同じ問題を抱えているのは嬉しくない。JVM 系言語で、Java ライブラリとの親和性を維持する以上、仕方ないものの……。</p>
+<h2 id=javascript-typescript>JavaScript, TypeScript</h2>
+<p>JavaScript の文字列は、Java 同様に不可変な UTF-16 文字列であり、16ビットのコードユニットごとに１つの要素として扱う。JavaScript は名前ほど Java っぽい言語ではないが、この点についてだけは Java の問題をそのまま引き継いでいる。</p>
+<p><a href=https://tc39.es/ecma262/multipage/ecmascript-data-types-and-values.html#sec-ecmascript-language-types-string-type>ECMAScript Language Specification: 6.1.4 The String Type</a>:</p>
+<blockquote>
+<p>The String type is the set of all ordered sequences of zero or more 16-bit unsigned integer values (&ldquo;elements&rdquo;) up to a maximum length of <code>2^53 - 1</code> elements. The String type is generally used to represent textual data in a running ECMAScript program, in which case each element in the String is treated as a UTF-16 code unit value.</p>
+</blockquote>
+<blockquote>
+<p>ECMAScript operations that do not interpret String contents apply no further semantics. Operations that do interpret String values treat each element as a single UTF-16 code unit. However, ECMAScript does not restrict the value of or relationships between these code units, so operations that further interpret String contents as sequences of Unicode code points encoded in UTF-16 must account for ill-formed subsequences. Such operations apply special treatment to every code unit with a numeric value in the inclusive range 0xD800 to 0xDBFF (defined by the Unicode Standard as a <em>leading surrogate</em>, or more formally as a <em>high-surrogate code unit</em>) and every code unit with a numeric value in the inclusive range 0xDC00 to 0xDFFF (defined as a <em>trailing surrogate</em>, or more formally as a <em>low-surrogate code unit</em>) using the following rules:</p>
+<ul>
+<li>A code unit that is not a leading surrogate and not a trailing surrogate is interpreted as a code point with the same value.</li>
+<li>A sequence of two code units, where the first code unit c1 is a leading surrogate and the second code unit c2 a trailing surrogate, is a surrogate pair and is interpreted as a code point with the value (c1 - 0xD800) × 0x400 + (c2 - 0xDC00) + 0x10000. (See 11.1.3)</li>
+<li>A code unit that is a leading surrogate or trailing surrogate, but is not part of a surrogate pair, is interpreted as a code point with the same value.</li>
+</ul>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>s</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;こんにちは😆&#34;</span>
+<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;string: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>s</span>);
+<span style=color:#75715e>// &#34;string: こんにちは😆&#34;
+</span><span style=color:#75715e></span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;length: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>length</span>);
+<span style=color:#75715e>// &#34;length: 7&#34;
+</span><span style=color:#75715e></span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;split: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>split</span>(<span style=color:#e6db74>&#39;&#39;</span>));
+<span style=color:#75715e>// &#34;split: こ,ん,に,ち,は,�,�&#34;
+</span><span style=color:#75715e></span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>s</span>.<span style=color:#a6e22e>length</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;s[&#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;]: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>s</span>[<span style=color:#a6e22e>i</span>]);
+<span style=color:#75715e>// &#34;s[0]: こ&#34;
+</span><span style=color:#75715e>// &#34;s[1]: ん&#34;
+</span><span style=color:#75715e>// &#34;s[2]: に&#34;
+</span><span style=color:#75715e>// &#34;s[3]: ち&#34;
+</span><span style=color:#75715e>// &#34;s[4]: は&#34;
+</span><span style=color:#75715e>// &#34;s[5]: �&#34;
+</span><span style=color:#75715e>// &#34;s[6]: �&#34;
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>c</span> <span style=color:#66d9ef>of</span> <span style=color:#a6e22e>s</span>) <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;for: &#34;</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>c</span>);
+<span style=color:#75715e>// &#34;for: こ&#34;
+</span><span style=color:#75715e>// &#34;for: ん&#34;
+</span><span style=color:#75715e>// &#34;for: に&#34;
+</span><span style=color:#75715e>// &#34;for: ち&#34;
+</span><span style=color:#75715e>// &#34;for: は&#34;
+</span><span style=color:#75715e>// &#34;for: 😆&#34;
+</span><span style=color:#75715e></span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;[...s]: &#34;</span> <span style=color:#f92672>+</span> [...<span style=color:#a6e22e>s</span>]);
+<span style=color:#75715e>// &#34;[...s]: こ,ん,に,ち,は,😆&#34;
+</span><span style=color:#75715e></span><span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;[...s].length: &#34;</span> <span style=color:#f92672>+</span> [...<span style=color:#a6e22e>s</span>].<span style=color:#a6e22e>length</span>);
+<span style=color:#75715e>// &#34;[...s].length: 6&#34;
+</span></code></pre></div><p>文字数の計算方法は、<a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/length#unicode>String length - MDN</a> などを見ると <code>[...str].length</code> という方法が紹介されている。ただこれは文字列を Unicode 文字の配列に分解生成してその長さを計算しており、配列生成のメモリコストがかかるのでないかというのが気になる。JavaScript 処理系によってはそこは最適化されているかもしれないが、そうでない場合、Go における <a href=https://pkg.go.dev/unicode/utf8#RuneCountInString><code>utf8.RuneCountInString(string) int</code></a> のような関数が必要なんじゃないかと思える。</p>
+<h2 id=python>Python</h2>
+<p><a href=https://docs.python.org/3/c-api/unicode.html>Python の文字列</a>は Unicode 文字列で、内部表現としては最適化が施されていて単純でないが、ともかく現在はサロゲートペアも正しく扱ってくれる。Python 文字列は不可変であるため、すべての文字が8バイトで表現できる範囲であれば UCS1 (UTF-8) で、すべての文字が16バイトで表現できる範囲であれば UCS2 (UTF-16) で、そうでなければ UCS4 (UTF-32) で保存されている、というのが今の CPython の実装だったかと思う（3.2 までの CPython は、ビルド時点で UTF-16 か UTF-32 に決め打ちだった時代があった。UTF-16 でビルドされていれば、サロゲートペアの扱いが JavaScript と同様だった）。利用者は何も気にせず UCS4 (UTF-32) で保存されていると思って扱えばよい（しかし最適化されているため、ただの ASCII 文字列などはそんなにメモリを食わないので安心できる）。JavaScript 処理系も、実際には ASCII 文字列であれば UCS1 で保存するような最適化をしているものがある（そこから一歩進んで CPython と同様に、サロゲートペアを含む文字列だけ UCS4 で保存してサロゲートペア問題を解消することも簡単だが、それをすると ECMAScript 仕様に違反するので、JavaScript 処理系でサロゲートペア問題はわざと解決されていない）。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;こんにちは😆&#34;</span>
+print(s)
+<span style=color:#75715e># こんにちは😆</span>
+print(len(s))
+<span style=color:#75715e># 6</span>
+ print(list(s))
+<span style=color:#75715e># [&#39;こ&#39;, &#39;ん&#39;, &#39;に&#39;, &#39;ち&#39;, &#39;は&#39;, &#39;😆&#39;]</span>
+<span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>0</span>, len(s)): print(<span style=color:#e6db74>&#39;s[</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>]: </span><span style=color:#e6db74>{}</span><span style=color:#e6db74>&#39;</span><span style=color:#f92672>.</span>format(i, s[i]))
+<span style=color:#75715e># s[0]: こ</span>
+<span style=color:#75715e># s[1]: ん</span>
+<span style=color:#75715e># s[2]: に</span>
+<span style=color:#75715e># s[3]: ち</span>
+<span style=color:#75715e># s[4]: は</span>
+<span style=color:#75715e># s[5]: 😆</span>
+</code></pre></div><h2 id=ruby>Ruby</h2>
+<p><a href=https://docs.ruby-lang.org/ja/latest/class/String.html>Ruby の文字列</a>は、可変であり、かつ、文字列オブジェクトごとに自身のエンコーディング情報を持っている。通常は、デフォルト UTF-8 エンコーディングになっており、もちろん１文字の長さはまったく統一されていないため、インデクシングのオーダーが <code>O(1)</code> でなく <code>O(n)</code> になるはずだが、それは現実的な問題にはなりづらいとして許容されていると思う。文字列長（＝文字数）自体は毎回計算しているのでなく、あらかじめ計算しておいた文字数をフィールドに保存しているはず。デフォルト以外のエンコーディングを扱うのはちょっと別の話かつ多分別の複雑さが出て来るので、ここでは無視する。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby>s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;こんにちは😆&#39;</span>
+puts(s)
+<span style=color:#75715e># こんにちは😆</span>
+puts(s<span style=color:#f92672>.</span>length)
+<span style=color:#75715e># 6</span>
+puts(s<span style=color:#f92672>.</span>encoding)
+<span style=color:#75715e># UTF-8</span>
+p(s<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;&#39;</span>))
+<span style=color:#75715e># [&#34;こ&#34;, &#34;ん&#34;, &#34;に&#34;, &#34;ち&#34;, &#34;は&#34;, &#34;😆&#34;]</span>
+s<span style=color:#f92672>.</span>length<span style=color:#f92672>.</span>times { <span style=color:#f92672>|</span>i<span style=color:#f92672>|</span> puts(<span style=color:#e6db74>&#34;s[</span><span style=color:#e6db74>#{</span>i<span style=color:#e6db74>}</span><span style=color:#e6db74>]: </span><span style=color:#e6db74>#{</span>s<span style=color:#f92672>[</span>i<span style=color:#f92672>]</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>) }
+<span style=color:#75715e># s[0]: こ</span>
+<span style=color:#75715e># s[1]: ん</span>
+<span style=color:#75715e># s[2]: に</span>
+<span style=color:#75715e># s[3]: ち</span>
+<span style=color:#75715e># s[4]: は</span>
+<span style=color:#75715e># s[5]: 😆</span>
+</code></pre></div><h2 id=go>Go</h2>
+<p><a href=https://go.dev/ref/spec#String_literals>Go の文字列</a>は、不可変の UTF-8 文字列である。<code>len(s)</code> や <code>s[i]</code> はバイト単位で扱うため注意が必要だが、Unicode 文字の配列である <code>[]rune</code> に変換して処理したり <code>unicode/utf8</code> ライブラリを利用したりすれば、正しく処理できる。特に <code>for i, r := range s</code> は Unicode 文字ごとにループして、現在のバイト単位の位置と現在の Unicode 文字を変数に代入する。「文字列 != 文字の配列」であるため注意が必要なのは JavaScript と同様。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+
+<span style=color:#f92672>import</span> (
+	<span style=color:#e6db74>&#34;fmt&#34;</span>
+	<span style=color:#e6db74>&#34;strings&#34;</span>
+	<span style=color:#e6db74>&#34;unicode/utf8&#34;</span>
+)
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>s</span> <span style=color:#f92672>:=</span> <span style=color:#e6db74>&#34;こんにちは😆&#34;</span>
+	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;s: %s\n&#34;</span>, <span style=color:#a6e22e>s</span>)
+	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;len(s): %d\n&#34;</span>, len(<span style=color:#a6e22e>s</span>))
+	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;utf8.RuneCountInString(s): %d\n&#34;</span>, <span style=color:#a6e22e>utf8</span>.<span style=color:#a6e22e>RuneCountInString</span>(<span style=color:#a6e22e>s</span>)) <span style=color:#75715e>// len([]rune(s))
+</span><span style=color:#75715e></span>	<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;strings.Split(s, \&#34;\&#34;): %v\n&#34;</span>, <span style=color:#a6e22e>strings</span>.<span style=color:#a6e22e>Split</span>(<span style=color:#a6e22e>s</span>, <span style=color:#e6db74>&#34;&#34;</span>))
+	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> &lt; len(<span style=color:#a6e22e>s</span>); <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;s[%d]: %x\n&#34;</span>, <span style=color:#a6e22e>i</span>, <span style=color:#a6e22e>s</span>[<span style=color:#a6e22e>i</span>])
+	}
+	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span>, <span style=color:#a6e22e>r</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>s</span> {
+		<span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Printf</span>(<span style=color:#e6db74>&#34;rune %d in s: %c\n&#34;</span>, <span style=color:#a6e22e>i</span>, <span style=color:#a6e22e>r</span>)
+	}
+}
+<span style=color:#75715e>// s: こんにちは😆
+</span><span style=color:#75715e>// len(s): 19
+</span><span style=color:#75715e>// utf8.RuneCountInString(s): 6
+</span><span style=color:#75715e>// strings.Split(s, &#34;&#34;): [こ ん に ち は 😆]
+</span><span style=color:#75715e>// s[0]: e3
+</span><span style=color:#75715e>// s[1]: 81
+</span><span style=color:#75715e>// s[2]: 93
+</span><span style=color:#75715e>// s[3]: e3
+</span><span style=color:#75715e>// s[4]: 82
+</span><span style=color:#75715e>// s[5]: 93
+</span><span style=color:#75715e>// s[6]: e3
+</span><span style=color:#75715e>// s[7]: 81
+</span><span style=color:#75715e>// s[8]: ab
+</span><span style=color:#75715e>// s[9]: e3
+</span><span style=color:#75715e>// s[10]: 81
+</span><span style=color:#75715e>// s[11]: a1
+</span><span style=color:#75715e>// s[12]: e3
+</span><span style=color:#75715e>// s[13]: 81
+</span><span style=color:#75715e>// s[14]: af
+</span><span style=color:#75715e>// s[15]: f0
+</span><span style=color:#75715e>// s[16]: 9f
+</span><span style=color:#75715e>// s[17]: 98
+</span><span style=color:#75715e>// s[18]: 86
+</span><span style=color:#75715e>// rune 0 in s: こ
+</span><span style=color:#75715e>// rune 3 in s: ん
+</span><span style=color:#75715e>// rune 6 in s: に
+</span><span style=color:#75715e>// rune 9 in s: ち
+</span><span style=color:#75715e>// rune 12 in s: は
+</span><span style=color:#75715e>// rune 15 in s: 😆
+</span></code></pre></div><h2 id=rust>Rust</h2>
+<p>Rust については全然知らないので今回調べてみただけで、詳細は間違っているかもしれない。<a href=https://doc.rust-lang.org/stable/std/primitive.str.html>Rust の文字列</a>も Go の文字列と同様で、UTF-8 で表現される。<code>str.len()</code> はバイト列での扱いになるが、<code>str.chars()</code> によって Unicode 文字のイテレータ化をしてから操作すれば、正しく文字数や文字アクセスもできる。JavaScript の <code>[...str]</code> と違って返す型はイテレータなので、まともに実装されていれば変にメモリを消費することはない。通常の文字列である <code>str</code> は不可変だが、それとは別の <a href=https://doc.rust-lang.org/stable/std/string/struct.String.html><code>std::string::String</code></a> は可変である。主に、いわゆる <code>StringBuilder</code> 的な処理をするときに使われるようだ。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-rust data-lang=rust><span style=color:#66d9ef>fn</span> <span style=color:#a6e22e>main</span>() {
+    <span style=color:#66d9ef>let</span> s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;こんにちは😆&#34;</span>; <span style=color:#75715e>// &amp;str
+</span><span style=color:#75715e></span>    println!(<span style=color:#e6db74>&#34;s: {}&#34;</span>, s);
+    println!(<span style=color:#e6db74>&#34;s.len(): {}&#34;</span>, s.len());
+    println!(<span style=color:#e6db74>&#34;s.split(\&#34;\&#34;): {:?}&#34;</span>, s.split(<span style=color:#e6db74>&#34;&#34;</span>).collect::<span style=color:#f92672>&lt;</span>Vec<span style=color:#f92672>&lt;&amp;</span><span style=color:#66d9ef>str</span><span style=color:#f92672>&gt;&gt;</span>());
+    <span style=color:#66d9ef>for</span> c <span style=color:#66d9ef>in</span> s.bytes() {
+        println!(<span style=color:#e6db74>&#34;s.bytes(): {}&#34;</span>, c)
+    }
+
+    println!(<span style=color:#e6db74>&#34;s.chars().count(): {}&#34;</span>, s.chars().count());
+    <span style=color:#66d9ef>for</span> c <span style=color:#66d9ef>in</span> s.chars() {
+        println!(<span style=color:#e6db74>&#34;s.chars(): {}&#34;</span>, c)
+    }
+}
+
+<span style=color:#75715e>// s: こんにちは😆
+</span><span style=color:#75715e>// s.len(): 19
+</span><span style=color:#75715e>// s.split(&#34;&#34;): [&#34;&#34;, &#34;こ&#34;, &#34;ん&#34;, &#34;に&#34;, &#34;ち&#34;, &#34;は&#34;, &#34;😆&#34;, &#34;&#34;]
+</span><span style=color:#75715e>// s.bytes(): 227
+</span><span style=color:#75715e>// s.bytes(): 129
+</span><span style=color:#75715e>// s.bytes(): 147
+</span><span style=color:#75715e>// s.bytes(): 227
+</span><span style=color:#75715e>// s.bytes(): 130
+</span><span style=color:#75715e>// s.bytes(): 147
+</span><span style=color:#75715e>// s.bytes(): 227
+</span><span style=color:#75715e>// s.bytes(): 129
+</span><span style=color:#75715e>// s.bytes(): 171
+</span><span style=color:#75715e>// s.bytes(): 227
+</span><span style=color:#75715e>// s.bytes(): 129
+</span><span style=color:#75715e>// s.bytes(): 161
+</span><span style=color:#75715e>// s.bytes(): 227
+</span><span style=color:#75715e>// s.bytes(): 129
+</span><span style=color:#75715e>// s.bytes(): 175
+</span><span style=color:#75715e>// s.bytes(): 240
+</span><span style=color:#75715e>// s.bytes(): 159
+</span><span style=color:#75715e>// s.bytes(): 152
+</span><span style=color:#75715e>// s.bytes(): 134
+</span><span style=color:#75715e></span>
+<span style=color:#75715e>// s.chars().count(): 6
+</span><span style=color:#75715e>// s.chars(): こ
+</span><span style=color:#75715e>// s.chars(): ん
+</span><span style=color:#75715e>// s.chars(): に
+</span><span style=color:#75715e>// s.chars(): ち
+</span><span style=color:#75715e>// s.chars(): は
+</span><span style=color:#75715e>// s.chars(): 😆
+</span></code></pre></div></section>
+</article>
+<div class=column>
+<div class="tags has-addons">
+<span class="tag is-dark">Created at</span>
+<span class=tag><time datetime=2022-01-22T14:20:53+09:00>2022/01/22 14:20:53</time></span>
+</div>
+<div class="tags has-addons">
+<span class="tag is-dark">Tags</span>
+<a href=/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0 class="tag is-link">プログラミング</a>
+</div>
+</div>
+</div>
+</div>
+</div><footer class=footer>
+<div class="content has-text-centered">
+<p>Written by tn.</p>
+<p>Generated by <a href=https://gohugo.io/>Hugo</a>.</p>
+</div>
+</footer></body>
+</html>
